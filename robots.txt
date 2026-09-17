@@ -1,0 +1,7 @@
+# robots.txt — Droguería New Life
+# NOTA: Reemplaza los dominios de ejemplo por el dominio real del sitio antes de publicar.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://www.droguerianewlife.com/sitemap.xml
