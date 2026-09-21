@@ -178,4 +178,46 @@
     $$('.category-toggle').forEach((button) => {
         button.addEventListener('click', () => handleAccordion(button));
     });
+
+    /* ----------------------------------------------------------------------
+       CARRUSEL: galería de imágenes del local
+       ---------------------------------------------------------------------- */
+    const carousel = $('.carousel');
+    if (carousel) {
+        const slides = $$('.carousel__slide', carousel);
+        const dots = $$('.carousel__dot', carousel);
+        const prevBtn = $('.carousel__btn--prev', carousel);
+        const nextBtn = $('.carousel__btn--next', carousel);
+        let current = 0;
+        let autoplayTimer = null;
+
+        const goTo = (index) => {
+            slides[current].classList.remove('active');
+            dots[current].classList.remove('active');
+            current = (index + slides.length) % slides.length;
+            slides[current].classList.add('active');
+            dots[current].classList.add('active');
+        };
+
+        prevBtn.addEventListener('click', () => { goTo(current - 1); resetAutoplay(); });
+        nextBtn.addEventListener('click', () => { goTo(current + 1); resetAutoplay(); });
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => { goTo(i); resetAutoplay(); });
+        });
+
+        carousel.addEventListener('mouseenter', () => clearInterval(autoplayTimer));
+        carousel.addEventListener('mouseleave', startAutoplay);
+
+        function startAutoplay() {
+            clearInterval(autoplayTimer);
+            autoplayTimer = setInterval(() => goTo(current + 1), 5000);
+        }
+
+        function resetAutoplay() {
+            clearInterval(autoplayTimer);
+            startAutoplay();
+        }
+
+        startAutoplay();
+    }
 })();

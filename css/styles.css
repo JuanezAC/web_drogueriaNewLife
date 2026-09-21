@@ -733,6 +733,103 @@ button {
 }
 
 /* --------------------------------------------------------------------------
+   8b. CARRUSEL (dentro del hero)
+   -------------------------------------------------------------------------- */
+.carousel {
+    position: relative;
+    width: 100%;
+    border-radius: inherit;
+    overflow: hidden;
+}
+
+.carousel__track {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+}
+
+.carousel__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.carousel__slide.active {
+    opacity: 1;
+}
+
+.carousel__slide .hero-photo {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carousel__btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.45);
+    color: #fff;
+    border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    z-index: 2;
+}
+
+.carousel__btn:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.carousel__btn--prev { left: 12px; }
+.carousel__btn--next { right: 12px; }
+
+.carousel__dots {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 2;
+}
+
+.carousel__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s;
+}
+
+.carousel__dot.active {
+    background: #fff;
+}
+
+@media (max-width: 640px) {
+    .carousel__btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+    .carousel__btn--prev { left: 8px; }
+    .carousel__btn--next { right: 8px; }
+    .carousel__dots { bottom: 8px; }
+    .carousel__dot { width: 8px; height: 8px; }
+}
+
+/* --------------------------------------------------------------------------
    9. TARJETAS (servicios y categorías)
    -------------------------------------------------------------------------- */
 .cards-grid {

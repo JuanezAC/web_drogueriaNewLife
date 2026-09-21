@@ -6,7 +6,7 @@
 
     <!-- SEO básico -->
     <title>Droguería New Life | Droguería en La Dorada, Caldas</title>
-    <meta name="description" content="Droguería New Life, droguería y farmacia en La Dorada, Caldas. Medicamentos, inyectología, medición de presión y glucosa, vitaminas y cuidado personal. Cra. 3 #20-01, Centro. Lunes a sábado de 8:30 a. m. a 8:30 p. m. WhatsApp 320 693 4045.">
+    <meta name="description" content="Droguería New Life, droguería y farmacia en La Dorada, Caldas. Medicamentos, cuidado personal y bienestar. Cra. 3 #20-01, Centro. Lun a vie de 9:00 a. m. a 8:30 p. m., sáb de 9:00 a. m. a 7:00 p. m. WhatsApp 320 693 4045.">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Droguería New Life">
     <meta name="theme-color" content="#18154d">
@@ -71,9 +71,15 @@
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
-          "opens": "08:30",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+          "opens": "09:00",
           "closes": "20:30"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Saturday",
+          "opens": "09:00",
+          "closes": "19:00"
         }
       ]
     }
@@ -244,6 +250,7 @@
                 <li><a class="nav-link" href="#nosotros">Nosotros</a></li>
                 <li><a class="nav-link" href="#servicios">Servicios</a></li>
                 <li><a class="nav-link" href="#categorias">Categorías</a></li>
+                <li><a class="nav-link" href="#horario">Horario</a></li>
                 <li><a class="nav-link" href="#ubicacion">Ubicación</a></li>
                 <li class="nav-cta">
                     <a class="btn btn--whatsapp" data-whatsapp href="#contacto">
@@ -294,15 +301,22 @@
                 </div>
 
                 <div class="hero-visual">
-                    <img
-                        class="hero-photo"
-                        src="assets/images/Drogueria-1.jpeg"
-                        alt="Fachada de Droguería New Life en La Dorada, Caldas"
-                        width="560"
-                        height="420"
-                        loading="eager"
-                        fetchpriority="high"
-                    >
+                    <div class="carousel" aria-label="Galería del local">
+                        <div class="carousel__track">
+                            <div class="carousel__slide active">
+                                <img class="hero-photo" src="assets/images/Drogueria-1.jpg" alt="Fachada de Droguería New Life en La Dorada, Caldas" loading="eager" fetchpriority="high">
+                            </div>
+                            <div class="carousel__slide">
+                                <img class="hero-photo" src="assets/images/Drogueria-2.jpg" alt="Interior de Droguería New Life" loading="lazy">
+                            </div>
+                        </div>
+                        <button class="carousel__btn carousel__btn--prev" aria-label="Imagen anterior">&#10094;</button>
+                        <button class="carousel__btn carousel__btn--next" aria-label="Siguiente imagen">&#10095;</button>
+                        <div class="carousel__dots">
+                            <button class="carousel__dot active" aria-label="Imagen 1"></button>
+                            <button class="carousel__dot" aria-label="Imagen 2"></button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -550,8 +564,13 @@
                 <ul class="hours-grid reveal">
                     <li class="hours-card">
                         <span class="hours-icon" aria-hidden="true"><svg class="icon"><use href="#icon-clock"></use></svg></span>
-                        <span class="hours-day">Lunes a sábado</span>
-                        <span class="hours-time">8:30 a. m. – 8:30 p. m.</span>
+                        <span class="hours-day">Lunes a viernes</span>
+                        <span class="hours-time">9:00 a. m. – 8:30 p. m.</span>
+                    </li>
+                    <li class="hours-card">
+                        <span class="hours-icon" aria-hidden="true"><svg class="icon"><use href="#icon-clock"></use></svg></span>
+                        <span class="hours-day">Sábado</span>
+                        <span class="hours-time">9:00 a. m. – 7:00 p. m.</span>
                     </li>
                     <li class="hours-card hours-card--closed">
                         <span class="hours-icon" aria-hidden="true"><svg class="icon"><use href="#icon-clock"></use></svg></span>
@@ -560,7 +579,7 @@
                     </li>
                 </ul>
 
-                <p class="section-note reveal">Horario de lunes a sábado. Puede variar en días festivos.</p>
+                <p class="section-note reveal">Horario de lunes a viernes y sábado. Puede variar en días festivos.</p>
             </div>
         </section>
 
@@ -586,7 +605,7 @@
                             <span class="info-icon" aria-hidden="true"><svg class="icon"><use href="#icon-clock"></use></svg></span>
                             <div>
                                 <strong>Horario</strong>
-                                <span>Lunes a sábado de 8:30 a. m. a 8:30 p. m.</span>
+                                <span>Lun a vie de 9:00 a. m. a 8:30 p. m. · Sáb de 9:00 a. m. a 7:00 p. m.</span>
                             </div>
                         </li>
                         <li class="info-item">
@@ -682,6 +701,7 @@
                     <li><a href="#nosotros">Nosotros</a></li>
                     <li><a href="#servicios">Servicios</a></li>
                     <li><a href="#categorias">Categorías</a></li>
+                    <li><a href="#horario">Horario</a></li>
                     <li><a href="#ubicacion">Ubicación</a></li>
                 </ul>
             </nav>
@@ -703,7 +723,7 @@
                     </li>
                     <li class="footer-link-item">
                         <svg class="icon" aria-hidden="true"><use href="#icon-clock"></use></svg>
-                        <span>Lun a sáb · 8:30 a. m. a 8:30 p. m.</span>
+                        <span>Lun a vie · 9:00 a. m. a 8:30 p. m. · Sáb · 9:00 a. m. a 7:00 p. m.</span>
                     </li>
                 </ul>
             </div>
@@ -711,7 +731,8 @@
             <div class="footer-col">
                 <h2 class="footer-title">Horario</h2>
                 <ul class="footer-hours">
-                    <li><span>Lunes a sábado</span><span>8:30 a. m. – 8:30 p. m.</span></li>
+                    <li><span>Lunes a viernes</span><span>9:00 a. m. – 8:30 p. m.</span></li>
+                    <li><span>Sábado</span><span>9:00 a. m. – 7:00 p. m.</span></li>
                     <li><span>Domingo</span><span>Cerrado</span></li>
                 </ul>
             </div>
