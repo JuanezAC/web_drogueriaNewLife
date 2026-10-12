@@ -20,8 +20,6 @@
     const $ = (selector, context = document) => context.querySelector(selector);
     const $$ = (selector, context = document) => Array.from(context.querySelectorAll(selector));
 
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
     /* ----------------------------------------------------------------------
        ENLACES DE WHATSAPP
        Genera el enlace wa.me a partir de la configuración central.
@@ -133,28 +131,80 @@
     });
 
     /* ----------------------------------------------------------------------
-       APARICIÓN CONSCIENTE AL HACER SCROLL (reveal)
-       Respeta prefers-reduced-motion.
+       ESTADO ABIERTO / CERRADO Y DÍA DE HOY
+       Horario del negocio en minutos desde medianoche (formato 24 h).
        ---------------------------------------------------------------------- */
-    const revealEls = $$('.reveal');
+    const SCHEDULE = [
+        { days: [1, 2, 3, 4, 5], opens: 9 * 60, closes: 20 * 60 + 30 }, // lun a vie
+        { days: [6], opens: 9 * 60, closes: 19 * 60 }                    // sábado
+    ];
 
-    if ('IntersectionObserver' in window && !reduceMotion) {
-        const revealObserver = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        revealObserver.unobserve(entry.target);
-                    }
-                });
-            },
-            { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
-        );
+    const DAY_NAMES = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
 
-        revealEls.forEach((el) => revealObserver.observe(el));
-    } else {
-        revealEls.forEach((el) => el.classList.add('is-visible'));
-    }
+    const formatHour = (minutes) => {
+        const hour24 = Math.floor(minutes / 60);
+        const mins = String(minutes % 60).padStart(2, '0');
+        const suffix = hour24 >= 12 ? 'p. m.' : 'a. m.';
+        const hour12 = hour24 % 12 === 0 ? 12 : hour24 % 12;
+        return `${hour12}:${mins} ${suffix}`;
+    };
+
+    const slotForDay = (day) => SCHEDULE.find((slot) => slot.days.includes(day)) || null;
+
+    const updateOpenStatus = () => {
+        const wrap = $('[data-open-status]');
+        const label = $('[data-open-status-text]');
+        if (!wrap || !label) return;
+
+        const now = new Date();
+        const today = now.getDay();
+        const minutes = now.getHours() * 60 + now.getMinutes();
+        const todaySlot = slotForDay(today);
+
+        if (todaySlot && minutes >= todaySlot.opens && minutes < todaySlot.closes) {
+            wrap.classList.remove('is-closed');
+            label.textContent = `Abierto ahora · cerramos a las ${formatHour(todaySlot.closes)}`;
+            return;
+        }
+
+        wrap.classList.add('is-closed');
+
+        if (todaySlot && minutes < todaySlot.opens) {
+            label.textContent = `Cerrado · abrimos hoy a las ${formatHour(todaySlot.opens)}`;
+            return;
+        }
+
+        for (let offset = 1; offset <= 7; offset += 1) {
+            const day = (today + offset) % 7;
+            const slot = slotForDay(day);
+            if (slot) {
+                const when = offset === 1 ? 'mañana' : `el ${DAY_NAMES[day]}`;
+                label.textContent = `Cerrado · abrimos ${when} a las ${formatHour(slot.opens)}`;
+                return;
+            }
+        }
+    };
+
+    updateOpenStatus();
+    window.setInterval(updateOpenStatus, 60000);
+
+    const markTodayInHours = () => {
+        const today = new Date().getDay();
+        $$('.hours-card').forEach((row) => {
+            const days = (row.getAttribute('data-days') || '').split(/\s+/).filter(Boolean).map(Number);
+            if (!days.includes(today)) return;
+            row.classList.add('is-today');
+            const dayName = row.querySelector('.hours-day');
+            if (dayName && !dayName.querySelector('.hours-today')) {
+                const tag = document.createElement('span');
+                tag.className = 'hours-today';
+                tag.textContent = 'Hoy';
+                dayName.append(tag);
+            }
+        });
+    };
+
+    markTodayInHours();
 
     /* ----------------------------------------------------------------------
        CATEGORÍAS: acordeón ligero
